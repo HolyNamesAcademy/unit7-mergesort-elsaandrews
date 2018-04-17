@@ -1,5 +1,4 @@
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
 
 public class Main {
@@ -44,7 +43,16 @@ public class Main {
      * @param arrayList the ArrayList to be sorted. arrayList cannot contain duplicates
      */
     public static void mergeSort(ArrayList<Integer> arrayList) {
-        throw new UnsupportedOperationException("mergeSort() has not been implemented yet");
+        //break up
+        if (arrayList.size() == 1)
+            return arrayList.get(0);
+
+        int size = arrayList.size();
+        ArrayList <Integer> part1 = new ArrayList<Integer>(size/2);
+
+
+        //put back together
+
     }
 
     /**
@@ -57,7 +65,15 @@ public class Main {
      * @param hi the index of the last element in the range + 1.
      */
     public static void sort(ArrayList<Integer> arrayList, int lo, int hi) {
-        throw new UnsupportedOperationException("sort() has not been implemented yet");
+        if (lo < hi)
+        {
+            int mid = (lo+hi)/2;
+
+            sort(arrayList, lo, hi);
+            sort(arrayList , mid+1, hi);
+
+            merge(arrayList, lo, mid, hi);
+        }
     }
 
     /**
@@ -71,6 +87,24 @@ public class Main {
      * @param hi the index of the last element in the second range + 1.
      */
     public static void merge(ArrayList<Integer> arrayList, int lo, int mid, int hi) {
-        throw new UnsupportedOperationException("merge() has not been implemented yet");
+
+        ArrayList<Integer> sorted = new ArrayList<Integer>;
+        int x = lo;
+        int y = mid;
+        int z = hi;
+
+        while(x < z/2 && y < z)
+        {
+            if (arrayList.get(x) > arrayList.get(y)) {
+                sorted.add(y);
+                y += 1;
+            }
+
+            if (arrayList.get(x) > arrayList.get(y))
+
+
+
+        }
+
     }
 }
