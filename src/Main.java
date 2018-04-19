@@ -44,13 +44,7 @@ public class Main {
      */
     public static void mergeSort(ArrayList<Integer> arrayList) {
         //break up
-        if (arrayList.size() == 1)
-            return arrayList.get(0);
-
-        int size = arrayList.size();
-        ArrayList <Integer> part1 = new ArrayList<Integer>(size/2);
-
-
+        sort(arrayList, 0, arrayList.size() + 1);
         //put back together
 
     }
@@ -88,22 +82,39 @@ public class Main {
      */
     public static void merge(ArrayList<Integer> arrayList, int lo, int mid, int hi) {
 
-        ArrayList<Integer> sorted = new ArrayList<Integer>;
+        ArrayList<Integer> sorted = new ArrayList<Integer>();
         int x = lo;
         int y = mid;
         int z = hi;
 
-        while(x < z/2 && y < z)
+        while(x < mid && y < hi)
         {
             if (arrayList.get(x) > arrayList.get(y)) {
-                sorted.add(y);
+                sorted.add(arrayList.get(y));
                 y += 1;
             }
 
-            if (arrayList.get(x) > arrayList.get(y))
+            else if (arrayList.get(y) > arrayList.get(x))
+            {
+                sorted.add(arrayList.get(x));
+                x += 1;
+            }
 
+            else if (x == mid -1 )
+            {
+                sorted.add(arrayList.get(y));
+                y += 1;
+            }
 
-
+            else if (y == hi -1)
+            {
+                sorted.add(arrayList.get(x));
+                x += 1;
+            }
+        }
+        for (int i = lo; i < hi - 2 ; i++)
+        {
+            arrayList.set(i,sorted.get(i));
         }
 
     }
