@@ -43,9 +43,9 @@ public class Main {
      * @param arrayList the ArrayList to be sorted. arrayList cannot contain duplicates
      */
     public static void mergeSort(ArrayList<Integer> arrayList) {
-        //break up
-        sort(arrayList, 0, arrayList.size() + 1);
-        //put back together
+
+        sort(arrayList, 0, arrayList.size());
+        merge(arrayList,0, arrayList.size()/2, arrayList.size());
 
     }
 
@@ -59,15 +59,15 @@ public class Main {
      * @param hi the index of the last element in the range + 1.
      */
     public static void sort(ArrayList<Integer> arrayList, int lo, int hi) {
-        if (lo < hi)
+        if(hi - lo <= 1)
         {
-            int mid = (lo+hi)/2;
-
-            sort(arrayList, lo, hi);
-            sort(arrayList , mid+1, hi);
-
-            merge(arrayList, lo, mid, hi);
+            return;
         }
+
+        int mid = (hi + lo) / 2;
+        sort(arrayList, lo, mid);
+        sort(arrayList, mid, hi);
+        merge(arrayList, lo, mid, hi);
     }
 
     /**
@@ -80,42 +80,41 @@ public class Main {
      * @param mid the boundary point of the two ranges. arrayList[mid] is in the second range.
      * @param hi the index of the last element in the second range + 1.
      */
-    public static void merge(ArrayList<Integer> arrayList, int lo, int mid, int hi) {
-
-        ArrayList<Integer> sorted = new ArrayList<Integer>();
-        int x = lo;
-        int y = mid;
-        int z = hi;
-
-        while(x < mid && y < hi)
+    public static void merge(ArrayList<Integer> arrayList, int lo, int mid, int hi)
         {
-            if (arrayList.get(x) > arrayList.get(y)) {
-                sorted.add(arrayList.get(y));
-                y += 1;
-            }
+            ArrayList<Integer> tempArray = new ArrayList<Integer>();
+            int i = lo;
+            int j = mid;
 
-            else if (arrayList.get(y) > arrayList.get(x))
+            while(i < mid || j < hi)
             {
-                sorted.add(arrayList.get(x));
-                x += 1;
+                if(j == hi)
+                {
+                    tempArray.add(arrayList.get(i));
+                    i++;
+                }
+                else if(i == mid)
+                {
+                    tempArray.add(arrayList.get(j));
+                    j++;
+                }
+                else if(arrayList.get(j) < arrayList.get(i))
+                {
+                    tempArray.add(arrayList.get(j));
+                    j++;
+                }
+                else
+                {
+                    tempArray.add(arrayList.get(i));
+                    i++;
+                }
             }
+            for (int index = 0; index < tempArray.size(); index++) {
 
-            else if (x == mid -1 )
-            {
-                sorted.add(arrayList.get(y));
-                y += 1;
-            }
+                arrayList.set(index + lo, tempArray.get(index));
 
-            else if (y == hi -1)
-            {
-                sorted.add(arrayList.get(x));
-                x += 1;
             }
-        }
-        for (int i = lo; i < hi - 2 ; i++)
-        {
-            arrayList.set(i,sorted.get(i));
         }
 
     }
-}
+
